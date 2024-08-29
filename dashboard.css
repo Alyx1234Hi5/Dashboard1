@@ -1,0 +1,596 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", 'Segoe UI';
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.progress {
+    height: 3px;
+    width: 0%;
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    animation: progress 1s linear;
+}
+
+@keyframes progress {
+    to {
+        background-color: rgb(118, 183, 236);
+        width: 100%;
+    }
+}
+
+
+/*sidebar*/
+.wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 230vh;
+    width: 80px;
+    border-radius: 0 18px 18px 0;
+    background-color: #0e223e;
+    padding: 0.4rem 0.8rem;
+    transition: all .25s ease-in-out;
+    z-index: 1000; /*ensure sidebar is above main content*/
+}
+
+.wrapper.active {
+    width: 250px;
+}
+
+/* 1st try 
+.main-content {
+    margin-left: 95px; 
+    transition: margin-left 0.5s ease;
+} */
+
+.main-content {
+    margin-left: 95px;
+    transition: margin-left 0.5s ease;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.wrapper.active ~ .main-content {
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    transition: all 0.5s ease;
+}
+
+/*sidebar burger menu*/
+.wrapper #btnMenu {
+    position: absolute;
+    top: 1%;
+    left: 50%;
+    font-size: 1.5rem;
+    line-height: 50px;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+
+.wrapper.active #btnMenu {
+    left: 90%;
+}
+
+/*logo*/
+.wrapper .top .logo { /*.wrapper .top .logo*/
+    display: flex;
+    height: 50px;
+    width: 100%;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0;   
+}
+
+.wrapper.active .top .logo { /*.wrapper .top .logo*/
+    opacity: 1;
+}
+
+.top .logo img {
+    width: 35px;
+    height: 35px;
+    margin-right: 5px;
+}
+/*end of logo*/
+/*user section*/
+.user {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.user-image {
+    width: 50px;
+    border-radius: 100%;
+    border: 1px solid #eee;
+}
+
+.user p {
+    margin-left: 1rem;
+    opacity: 1;
+}
+
+.bold {
+    font-weight: 600;
+}
+
+.wrapper p {
+    opacity: 0;
+}
+
+.wrapper.active p {
+    opacity: 1;
+}
+
+/*nav items*/
+.wrapper ul li {
+    position: relative;
+    list-style-type: none;
+    height: 50px;
+    width: 90%;
+    margin: 0.8rem auto;
+    line-height: 50px;
+}
+
+.wrapper ul li a {
+    color: #fcf3f3;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 0.8rem;
+}
+
+.wrapper ul li a:hover {
+    background-color: #232946;
+    color: #fff;
+}
+
+.wrapper ul li a i {
+    min-width: 50px;
+    text-align: center;
+    height: 50px;
+    border-radius: 12px;
+    line-height: 50px;
+}
+
+/*nav items tooltip*/
+.wrapper .nav-item {
+    opacity: 0;
+}
+
+.wrapper.active .nav-item {
+    opacity: 1;
+}
+
+.wrapper ul li .tooltip {
+    position: absolute;
+    left: 125px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    border-radius: 0.6rem;
+    padding: 0.4rem 1.2rem;
+    line-height: 1.8rem;
+    z-index: 20;
+    opacity: 0;
+}
+
+.wrapper ul li:hover .tooltip {
+    opacity: 1;
+}
+
+.wrapper.active ul li .tooltip {
+    display: none;
+}
+
+.wrapper ul li .bx-chevron-down{
+    opacity: 0;
+}
+
+.wrapper.active ul li .bx-chevron-down{
+    opacity: 1;
+}
+
+  #sidebar.expand {
+    width: 260px;
+    min-width: 260px;
+  }
+
+  #sidebar:not(.expand) .sidebar-logo,
+  #sidebar:not(.expand) a.sidebar-link span {
+    display: none;
+  }
+
+.sidebar-nav {
+    padding: 2rem 0;
+    flex: 1 1 auto;
+  }
+
+
+.sidebar-item {
+    position: relative;
+  }
+  
+  a.sidebar-link:hover {
+    background-color: #232946;
+    border-left: 3px solid #1d0a0c;
+  }
+  
+  #sidebar:not(.expand) .sidebar-item .sidebar-dropdown {
+    position: absolute;
+    top: 0;
+    left: 70px;
+    background-color: #6e7ed1;
+    padding: 0;
+    min-width: 15rem;
+    display: none;
+  }
+  
+  #sidebar:not(.expand) .sidebar-item:hover .has-dropdown + .sidebar-dropdown {
+    display: block;
+    max-width: 15em;
+    width: 100%;
+    opacity: 1;
+  }
+
+  #sidebar.expand .sidebar-link [data-bs-toggle="collapse"]::after {
+    border: solid;
+    border-width: 0 0.075rem 0.075rem 0;
+    content: "";
+    display: inline-block;
+    padding: 2px;
+    position: absolute;
+    right: 1.5rem;
+    top: 1rem;
+    transform: rotate(-135deg);
+    transition: all 0.2s ease-out;
+  }
+  
+  #sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
+    transform: rotate(45deg);
+    transition: all 0.2s ease-out;
+  }
+
+/*for responsiveness*/
+@media (max-width: 768px) {
+    .wrapper {
+        width: 60px;
+    }
+
+    .wrapper.active {
+        width: 200px;
+    }
+
+    .main-content {
+        margin-left: 70px;
+    }
+
+    .wrapper.active ~ .main-content {
+        margin-left: 210px;
+        width: calc(100% - 210px);
+    }
+
+    .wrapper.active #btnMenu {
+        left: 85%;
+    }
+
+    .wrapper #btnMenu {
+        left: 50%;
+    }
+
+    .wrapper .top .sidebar-logo {
+        height: 40px;
+    }
+
+    .top .sidebar-logo img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .user-image {
+        min-width: 35px;
+    }
+
+    .wrapper ul li a i {
+        min-width: 30px;
+        text-align: center;
+        height: 50px;
+        border-radius: 12px;
+        line-height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .wrapper {
+        width: 50px;
+    }
+
+    .wrapper.active {
+        width: 180px;
+    }
+
+    .main-content {
+        margin-left: 60px;
+    }
+
+    .wrapper.active ~ .main-content {
+        margin-left: 190px;
+        width: calc(100% - 190px);
+    }
+
+    .wrapper.active #btnMenu {
+        left: 80%;
+    }
+
+    .wrapper #btnMenu {
+        left: 50%;
+    }
+
+    .wrapper .top .sidebar-logo {
+        height: 35px;
+    }
+
+    .top .sidebar-logo img {
+        width: 25px;
+        height: 25px;
+    }
+
+    .user-image {
+        min-width: 30px;
+    }
+
+    .wrapper ul li a i {
+        min-width: 25px;
+        text-align: center;
+        height: 50px;
+        border-radius: 12px;
+        line-height: 50px;
+    }
+}
+
+
+.main-content h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+    }
+
+ 
+    .cards {
+        flex-direction: column;
+    }
+}
+
+
+
+.cards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: right; /*center*/ /*edited by lex*/ 
+}
+
+/* cards layout */
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;    
+    gap: 115px;  /* 10pxere *//*edited by lex*/ 
+    justify-content: space-between; 
+} 
+
+/* so far okay naman din ito 8/5/24 23:25 */
+.card {
+    flex-grow: 1;
+    border: 1px solid #ccc;
+    background-color: rgb(212, 237, 241); /*add*/
+    padding: 10px;
+    text-align: center;
+    box-sizing: border-box;
+    overflow: hidden;
+    max-width: calc(33% - 20px);
+} 
+
+
+/*h1 for dashboard*/
+.cards-container h1  {           
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    text-align: left;
+}
+
+.card h3 .card p {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+/* layout for charts .lex*/
+.charts-container {
+    display: flex;
+    flex-direction: column;
+    background: #64806b;
+    align-items: right; /*center*/ /*edited by lex*/ 
+}
+
+
+.charts {
+    display: flex; 
+    align-items: center;
+    justify-content: center; /* justify-content: space-between; */
+    background-color: rgb(235, 253, 253);
+    gap: 15px;
+} 
+
+.chart{
+    
+    flex-grow: 1;
+    border: 1px solid #ccc;
+   /* padding:10px;*/
+    text-align: center;
+    box-sizing: border-box;
+    overflow: hidden;
+    max-width: calc(25% - 20px);
+    padding: 1rem;
+    border:2px solid rgb(195, 238, 229);
+    border-radius: 1rem;
+    background: rgb(175, 217, 228);
+    box-shadow: 00 100px rgba(26, 22, 22, 0);
+
+}
+
+/* for responsiveness */
+@media (max-width: 768px) {
+    .card {
+        flex: 1 1 calc(50% - 20px);
+        max-width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}
+
+/*responsiveness for charts*/
+@media (max-width: 768px) {
+    .chart{
+        flex: 1 1 calc(50% - 20px);
+        max-width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .charts {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}
+
+
+
+
+.right-side {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.calendar-container {
+
+    background-color: hsl(0, 0%, 100%);
+    flex-direction: center; 
+    align-items: center;
+    
+    
+    
+}
+
+/* Style the event list */
+#event-list {
+    float: left; /* Add this line to move the event list to the left */
+    width: 350px; /* Set a fixed width for the event list */
+    padding: 2px;
+    background-color: hsl(169, 100%, 93%);
+    height: 515px;
+    border: 3px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 0px;
+    margin-top: 10px;
+}
+
+/* Style the calendar container */
+#calendar {
+    float: left; /* Add this line to move the calendar to the left */
+    width: 650px; /* Set a fixed width for the calendar */
+    margin-top: 10px;
+   /* margin-left:100px;*/
+    flex-direction: center; 
+    align-items: center;
+    padding: 20px;
+    background-color: rgb(225, 255, 255);
+    border: 3px solid #ddd;
+}
+#event-list h2 {
+    font-size: 35px;
+    font-weight: bold;
+    margin-top: 2; /* Remove the default margin top */
+    margin-left: 5px;
+    color: #333; /* Set a dark gray color */
+}
+#event-list ul {
+    list-style: none; /* Remove the default bullet points */
+    padding: 0; /* Remove the default padding */
+    margin: 0; /* Remove the default margin */
+}
+
+#event-list ul li {
+    padding: 10px; /* Add some padding to each list item */
+    border-bottom: 1px solid #ccc; /* Add a border bottom to each list item */
+}
+
+.fc-day.hovered {
+    background-color:blueviolet; /* Choose a hover background color */
+    border-radius: 2%;
+    cursor: pointer; /* Change the cursor to a pointer on hover */
+    transition: 0.5s; /* Adjust the transition duration */
+}
+
+.fc-day.hovered:hover {
+    background-color: blueviolet; /* Choose a hover-over background color */
+    transition:  0.5s; /* Adjust the transition duration */
+}
+/* Media queries for responsiveness */
+
+/* For screens smaller than 1200px */
+/* Add a media query for screens with a maximum width of 768px */
+@media only screen and (max-width: 768px) {
+  /* Style the event list and calendar container for smaller screens */
+  #event-list {
+    width: 100%; /* Make the event list take up the full width */
+    float: none; /* Remove the float property */
+    margin-bottom: 20px; /* Add some margin bottom */
+  }
+  #calendar {
+    width: 100%; /* Make the calendar take up the full width */
+    float: none; /* Remove the float property */
+    margin-left: 0; /* Remove the margin left */
+  }
+}
+
+/* Add a media query for screens with a maximum width of 480px */
+@media only screen and (max-width: 480px) {
+  /* Style the event list and calendar container for even smaller screens */
+  #event-list {
+    height: auto; /* Make the event list height auto */
+    padding: 10px; /* Reduce the padding */
+  }
+  #calendar {
+    height: auto; /* Make the calendar height auto */
+    padding: 10px; /* Reduce the padding */
+  }
+}
+
+
+
+
+
